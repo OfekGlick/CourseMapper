@@ -60,7 +60,8 @@ def build_db():
 
 
 def build_graph(df: pd.DataFrame):
-    G = nx.from_pandas_edgelist(df, 'course_id', 'prerequisites', ['course_name', 'description', 'link'])
+    G = nx.from_pandas_edgelist(df, 'course_id', 'prerequisites', ['course_name', 'description', 'link'],
+                                create_using=nx.DiGraph())
     nan_nodes = []
     import math
     for node in G.nodes():
@@ -72,4 +73,3 @@ def build_graph(df: pd.DataFrame):
     with open('data.json', 'w', encoding='utf-8-sig') as f:
         json.dump(s1, f, ensure_ascii=False, indent=4)
     return G
-
